@@ -1,8 +1,20 @@
 {
   "name": "fast-yu",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.0.7",
+  "description": "yunan application generator",
+  "main": "bin/fast-yu.js",
+  "preferGlobal": true,
+  "bin": {
+    "fast": "./bin/fast-yu.js"
+  },
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "files": [
+    "LICENSE",
+    "bin/",
+    "templates/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,8 +23,8 @@
     "url": "git+https://github.com/styunan/fast-yu.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "styunan",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/styunan/fast-yu/issues"
   },
