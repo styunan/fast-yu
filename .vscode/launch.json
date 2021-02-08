@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "node bin/fast-yu.js --view=express hello",
+            "command": "node bin/fast-yu.js -e hello",
             "name": "Run npm start",
             "request": "launch",
             "type": "node-terminal"
