@@ -3,15 +3,13 @@
 const {
   exit,
   renamedOption,
-  mkdir,
-  write,
-  loadTemplate,
   confirm,
   emptyDirectory,
   createAppName,
   around,
   before,
 } = require("./utils");
+const createExpressProject = require("./express");
 const path = require("path");
 const program = require("commander");
 
@@ -91,12 +89,11 @@ function main() {
     if (empty || options.force) {
       createApplication(appName, destinationPath);
     } else {
-      confirm("destination is not empty, continue? [y/N] ", function (ok) {
+      confirm("目录已经存在，是否继续? [\x1b[36my\x1b[0m/N] ", function (ok) {
         if (ok) {
-          process.stdin.destroy();
           createApplication(appName, destinationPath);
         } else {
-          console.error("aborting");
+          console.error("取消");
           exit(1);
         }
       });
@@ -112,50 +109,17 @@ function main() {
  */
 
 function createApplication(name, dir) {
-  // Package.json
-  var pkg = {
-    name: name,
-    version: "1.0.0",
-    description: "",
-    private: true,
-    scripts: {
-      start: "node index.js",
-    },
-    keywords: [],
-    author: "",
-    license: "ISC",
-    dependencies: {},
-  };
-  // JavaScript
-  var app = loadTemplate("js/app.js");
-  // App modules
-  app.locals.mounts = [];
-
   const options = program.opts();
   // Template support
   switch (options.view) {
     case "express":
-      app.locals.view = { engine: "express" };
-      pkg.dependencies.express = "^4.17.1";
+      createExpressProject(name, dir, options.view);
       break;
     case "node":
-      app.locals.view = { engine: "node" };
       break;
     case "es6":
-      app.locals.view = { engine: "es6" };
       break;
     default:
-      app.locals.view = { engine: "world" };
       break;
   }
-
-  if (dir !== ".") {
-    mkdir(dir, ".");
-  }
-
-  // mkdir(dir, "public")
-
-  // write files
-  write(path.join(dir, "index.js"), app.render());
-  write(path.join(dir, "package.json"), JSON.stringify(pkg, null, 2) + "\n");
 }

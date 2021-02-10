@@ -168,7 +168,7 @@ function confirm(msg, callback) {
 
   rl.question(msg, function (input) {
     rl.close();
-    callback(/^y|yes|ok|true$/i.test(input));
+    callback(/^(y|yes|ok|true|)$/i.test(input));
   });
 }
 exports.confirm = confirm;
