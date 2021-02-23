@@ -10,6 +10,7 @@ const {
   before,
 } = require("./utils");
 const createExpressProject = require("./express");
+const createSequelizeProject = require("./sequelize");
 const path = require("path");
 const program = require("commander");
 
@@ -54,13 +55,18 @@ program
     renamedOption("--node", "--view=node")
   )
   .option(
+    "-s, --sequelize",
+    "add nodejs project",
+    renamedOption("--sequelize", "--view=sequelize")
+  )
+  .option(
     "    --es6",
     "add ECMAScript 6 project",
     renamedOption("--es6", "--view=es6")
   )
   .option(
     "-v, --view <engine>",
-    "add View <engine> support (express|node|es6) (defaults to express)"
+    "add View <engine> support (express|node|es6|sequelize) (defaults to express)"
   )
   .option("-f, --force", "force on non-empty directory")
   .parse(process.argv);
@@ -83,6 +89,7 @@ function main() {
   if (options.express) options.view = "express";
   if (options.node) options.view = "node";
   if (options.es6) options.view = "es6";
+  if (options.sequelize) options.view = "sequelize";
 
   // Generate application
   emptyDirectory(destinationPath, function (empty) {
@@ -118,6 +125,9 @@ function createApplication(name, dir) {
     case "node":
       break;
     case "es6":
+      break;
+    case "sequelize":
+      createSequelizeProject(name, dir);
       break;
     default:
       break;
