@@ -1,11 +1,11 @@
 {
   "name": "fast-yu",
-  "version": "2.1.0",
+  "version": "2.4.0",
   "description": "yunan application generator",
   "main": "bin/fast-yu.js",
   "preferGlobal": true,
   "bin": {
-    "fast": "./bin/fast-yu.js"
+    "fast-yu": "./bin/fast-yu.js"
   },
   "engines": {
     "node": ">= 0.10"

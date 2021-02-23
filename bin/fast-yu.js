@@ -41,7 +41,7 @@ before(program, "unknownOption", function () {
 });
 
 program
-  .name("fast")
+  .name("fast-yu")
   .version(VERSION, "    --version")
   .usage("[options] [dir]")
   .option(
@@ -56,7 +56,7 @@ program
   )
   .option(
     "-s, --sequelize",
-    "add nodejs project",
+    "add sequelize project",
     renamedOption("--sequelize", "--view=sequelize")
   )
   .option(
