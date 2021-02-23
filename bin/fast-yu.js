@@ -91,6 +91,10 @@ function main() {
   if (options.es6) options.view = "es6";
   if (options.sequelize) options.view = "sequelize";
 
+  if (!options.view) {
+    program.outputHelp();
+    return;
+  }
   // Generate application
   emptyDirectory(destinationPath, function (empty) {
     if (empty || options.force) {
