@@ -68,9 +68,10 @@ function createSimpleExpressProject(name, dir, view) {
     mkdir(dir, ".");
   }
 
-  // mkdir(dir, "public")
+  mkdir(dir, ".vscode")
 
   // write files
+  createLaunchJson(dir)
   write(path.join(dir, "index.js"), app.render());
   write(path.join(dir, "package.json"), JSON.stringify(pkg, null, 2) + "\n");
 }
@@ -128,7 +129,25 @@ function createComplexExpressProject(name, dir, view) {
   mkdir(dir, "public")
 
   // write files
+  createLaunchJson(dir)
   write(path.join(dir, "index.js"), app.render());
   write(path.join(dir, "public/index.html"), html.render());
   write(path.join(dir, "package.json"), JSON.stringify(pkg, null, 2) + "\n");
+}
+
+function createLaunchJson(dir) {
+  // launch.json
+  var launch = {
+    version: "0.2.0",
+    configurations: [
+      {
+        type: "pwa-node",
+        request: "launch",
+        name: "Launch Program",
+        skipFiles: ["<node_internals>/**"],
+        program: "${workspaceFolder}\\index.js"
+      }
+    ]
+  };
+  write(path.join(dir, ".vscode/launch.json"), JSON.stringify(launch, null, 2) + "\n");
 }

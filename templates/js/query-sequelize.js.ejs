@@ -12,8 +12,19 @@ const Comment = sequelize.define(
 const Image = sequelize.define(
   "image",
   {
-    title: DataTypes.STRING,
-    url: DataTypes.STRING,
+    title: DataTypes.STRING,,
+    url: {
+      type: DataTypes.STRING,
+      set(value) {
+        if (value) {
+          this.setDataValue('url', value.toUpperCase());
+        }
+      },
+      get() {
+        const rawValue = this.getDataValue('url');
+        return rawValue ? rawValue.toLowerCase() : null;
+      },
+    }
   },
   { underscored: true,tableName: "image" }
 );
@@ -31,6 +42,8 @@ Video.hasMany(Comment);
 Comment.belongsTo(Video);
 (async () => {
   await sequelize.sync({ force: true });
-  await Image.create({ url: "https://placekitten.com/408/287" })
+  await Image.create({ title: '百度', url: "https://www.baidu.com" });
+  await Image.create({ title: 'CSDN', url: "https://www.csdn.net/" });
+  await Image.create({ title: 'ES6', url: "https://es6.ruanyifeng.com/" });
 }
 )();
