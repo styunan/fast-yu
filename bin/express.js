@@ -68,8 +68,6 @@ function createSimpleExpressProject(name, dir, view) {
     mkdir(dir, ".");
   }
 
-  mkdir(dir, ".vscode")
-
   // write files
   createLaunchJson(dir)
   write(path.join(dir, "index.js"), app.render());
@@ -149,5 +147,7 @@ function createLaunchJson(dir) {
       }
     ]
   };
+
+  mkdir(dir, ".vscode")
   write(path.join(dir, ".vscode/launch.json"), JSON.stringify(launch, null, 2) + "\n");
 }
