@@ -10,6 +10,7 @@ const {
   before,
 } = require("./utils");
 const createExpressProject = require("./express");
+const createHtmlProject = require("./html");
 const createSequelizeProject = require("./sequelize");
 const path = require("path");
 const program = require("commander");
@@ -43,30 +44,25 @@ before(program, "unknownOption", function () {
 program
   .name("fast-yu")
   .version(VERSION, "    --version")
-  .usage("[options] [dir]")
+  .usage("[options] <dir>")
   .option(
-    "-e, --express",
+    "-e, --express <dir>",
     "add express project",
     renamedOption("--express", "--view=express")
   )
   .option(
-    "-n, --node",
-    "add nodejs project",
-    renamedOption("--node", "--view=node")
-  )
-  .option(
-    "-s, --sequelize",
+    "-s, --sequelize<dir>",
     "add sequelize project",
     renamedOption("--sequelize", "--view=sequelize")
   )
   .option(
-    "    --es6",
-    "add ECMAScript 6 project",
-    renamedOption("--es6", "--view=es6")
+    "-h, --html <dir>",
+    "add html5 project",
+    renamedOption("--html", "--view=html")
   )
   .option(
     "-v, --view <engine>",
-    "add View <engine> support (express|node|es6|sequelize) (defaults to express)"
+    "add View <engine> support (express|html|sequelize) (defaults to express)"
   )
   .option("-f, --force", "force on non-empty directory")
   .parse(process.argv);
@@ -87,8 +83,7 @@ function main() {
   // Default view engine
   const options = program.opts();
   if (options.express) options.view = "express";
-  if (options.node) options.view = "node";
-  if (options.es6) options.view = "es6";
+  if (options.html) options.view = "html";
   if (options.sequelize) options.view = "sequelize";
 
   if (!options.view) {
@@ -126,14 +121,14 @@ function createApplication(name, dir) {
     case "express":
       createExpressProject(name, dir, options.view);
       break;
-    case "node":
-      break;
-    case "es6":
+    case "html":
+      createHtmlProject(dir);
       break;
     case "sequelize":
       createSequelizeProject(name, dir);
       break;
     default:
+      createExpressProject(name, dir, options.view);
       break;
   }
 }

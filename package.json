@@ -1,6 +1,6 @@
 {
   "name": "fast-yu",
-  "version": "2.5.3",
+  "version": "2.6.0",
   "description": "yunan application generator",
   "main": "bin/fast-yu.js",
   "preferGlobal": true,
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/styunan/fast-yu.git"
+    "url": "https://github.com/styunan/fast-yu.git"
   },
   "keywords": [],
   "author": "styunan",
