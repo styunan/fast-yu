@@ -44,19 +44,19 @@ before(program, "unknownOption", function () {
 program
   .name("fast-yu")
   .version(VERSION, "    --version")
-  .usage("[options] <dir>")
+  .usage("<options> [dir]")
   .option(
-    "-e, --express <dir>",
+    "-e, --express",
     "add express project",
     renamedOption("--express", "--view=express")
   )
   .option(
-    "-s, --sequelize<dir>",
+    "-s, --sequelize",
     "add sequelize project",
     renamedOption("--sequelize", "--view=sequelize")
   )
   .option(
-    "-h, --html <dir>",
+    "-h, --html",
     "add html5 project",
     renamedOption("--html", "--view=html")
   )
@@ -76,7 +76,7 @@ if (!exit.exited) {
  */
 function main() {
   // Path
-  var destinationPath = program.args.shift() || ".";
+  var destinationPath = program.args.shift() || "fast-yu";
   // App name
   var appName = createAppName(path.resolve(destinationPath)) || "hello-world";
 
